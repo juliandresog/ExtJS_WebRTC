@@ -1,0 +1,22 @@
+{
+    "type": "jsresource",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "js_apsiqma7",
+        "includeInBundle": false,
+        "remote": true,
+        "url": "https://webrtc.github.io/adapter/adapter-latest.js"
+    },
+    "configAlternates": {
+        "designer|userClassName": "string",
+        "includeInBundle": "boolean",
+        "remote": "boolean",
+        "url": "uri"
+    },
+    "name": "js",
+    "designerId": "7ad8b7fb-7e86-4fad-9073-29af2a34979a"
+}

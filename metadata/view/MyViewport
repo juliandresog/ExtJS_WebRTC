@@ -1,0 +1,305 @@
+{
+    "type": "Ext.container.Viewport",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|initialView": true,
+        "designer|userAlias": "myviewport",
+        "designer|userClassName": "MyViewport",
+        "height": 250,
+        "layout": "fit",
+        "width": 400
+    },
+    "configAlternates": {
+        "designer|initialView": "boolean",
+        "designer|userAlias": "string",
+        "designer|userClassName": "string",
+        "height": "auto",
+        "layout": "string",
+        "width": "auto"
+    },
+    "name": "MyViewport",
+    "designerId": "99dec8ae-1094-4d70-969d-12ee8c9d28b6",
+    "viewControllerInstanceId": "b359e3ad-a9aa-4c7f-a046-98b5221a00ac",
+    "viewModelInstanceId": "ea26cc90-9dec-4bfd-826c-f4e547ca6861",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "container|align": "stretch",
+                "layout": "vbox",
+                "title": "RecordTRC"
+            },
+            "configAlternates": {
+                "container|align": "string",
+                "layout": "string",
+                "title": "string"
+            },
+            "name": "MyPanel",
+            "designerId": "524df6dd-8e46-4531-8582-f4eb5d2fe850",
+            "cn": [
+                {
+                    "type": "Ext.form.Label",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "text": "URL Ejemplos: https://www.webrtc-experiment.com/RecordRTC/"
+                    },
+                    "configAlternates": {
+                        "text": "string"
+                    },
+                    "name": "MyLabel",
+                    "designerId": "bcc21c9a-64e3-4af5-83e3-d344ce82e917"
+                },
+                {
+                    "type": "Ext.container.Container",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|align": "stretch",
+                        "layout": "hbox",
+                        "layout|flex": 1
+                    },
+                    "configAlternates": {
+                        "container|align": "string",
+                        "layout": "string",
+                        "layout|flex": "number"
+                    },
+                    "name": "MyContainer1",
+                    "designerId": "91b0c52b-8898-41c9-93e3-ac4005b8189e",
+                    "cn": [
+                        {
+                            "type": "Ext.form.Label",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "flex": 1,
+                                "height": 510,
+                                "html": "<hr>  <video controls autoplay playsinline></video> <hr><footer style=\"margin-top: 20px;\"><small id=\"send-message\"></small></footer>",
+                                "itemId": "labelVideo"
+                            },
+                            "configAlternates": {
+                                "flex": "number",
+                                "height": "auto",
+                                "html": "string",
+                                "itemId": "string"
+                            },
+                            "name": "MyLabel1",
+                            "designerId": "f2d46382-b7e6-4526-909c-39829f14c62b"
+                        },
+                        {
+                            "type": "Ext.container.Container",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "container|pack": "center",
+                                "height": 30,
+                                "layout": "hbox",
+                                "layout|flex": 1
+                            },
+                            "configAlternates": {
+                                "container|pack": "string",
+                                "height": "auto",
+                                "layout": "string",
+                                "layout|flex": "number"
+                            },
+                            "name": "MyContainer",
+                            "designerId": "3f580c6a-4a61-40dd-9f72-db293e0e4b69",
+                            "cn": [
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "itemId": "btnStart",
+                                        "text": "Start Recording"
+                                    },
+                                    "configAlternates": {
+                                        "itemId": "string",
+                                        "text": "string"
+                                    },
+                                    "name": "MyButton",
+                                    "designerId": "dbefc806-160e-48d4-862c-1de9daf38299",
+                                    "cn": [
+                                        {
+                                            "type": "viewcontrollereventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onBtnStartClick",
+                                                "implHandler": [
+                                                    "var that = this;",
+                                                    "",
+                                                    "button.setDisabled(true);",
+                                                    "//that.getView().down('#btnStop').setDisabled(false);",
+                                                    "",
+                                                    "this.captureCamera(function(camera) {",
+                                                    "",
+                                                    "    that.video.muted = true;",
+                                                    "    that.video.volume = 0;",
+                                                    "    that.video.srcObject = camera;",
+                                                    "",
+                                                    "    that.recorder = RecordRTC(camera, {",
+                                                    "        type: 'video'",
+                                                    "    });",
+                                                    "",
+                                                    "    that.recorder.startRecording();",
+                                                    "    // release camera on stopRecording",
+                                                    "    that.recorder.camera = camera;",
+                                                    "",
+                                                    "    //document.getElementById('btn-stop-recording').disabled = false;",
+                                                    "    that.getView().down('#btnStop').setDisabled(false);",
+                                                    "",
+                                                    "});"
+                                                ],
+                                                "name": "click",
+                                                "scope": "me"
+                                            },
+                                            "configAlternates": {
+                                                "fn": "string",
+                                                "implHandler": "code",
+                                                "name": "string",
+                                                "scope": "string"
+                                            },
+                                            "name": "onBtnStartClick",
+                                            "designerId": "5e677960-9212-4611-b63f-93ca7ead1ca0"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "disabled": true,
+                                        "itemId": "btnStop",
+                                        "text": "Stop Recording"
+                                    },
+                                    "configAlternates": {
+                                        "disabled": "boolean",
+                                        "itemId": "string",
+                                        "text": "string"
+                                    },
+                                    "name": "MyButton1",
+                                    "designerId": "c25abf57-b291-4488-8240-67299898c842",
+                                    "cn": [
+                                        {
+                                            "type": "viewcontrollereventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onBtnStopClick",
+                                                "implHandler": [
+                                                    "button.setDisabled(true);",
+                                                    "this.recorder.stopRecording(this.stopRecordingCallback);"
+                                                ],
+                                                "name": "click",
+                                                "scope": "me"
+                                            },
+                                            "configAlternates": {
+                                                "fn": "string",
+                                                "implHandler": "code",
+                                                "name": "string",
+                                                "scope": "string"
+                                            },
+                                            "name": "onBtnStopClick",
+                                            "designerId": "1491481c-ef03-40f9-95e5-3487473cfd0f"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "viewcontrollereventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onViewportRender",
+                "implHandler": [
+                    "var that = this;",
+                    "this.video = document.querySelector('video');",
+                    "",
+                    "this.captureCamera = function captureCamera(callback) {",
+                    "",
+                    "    navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(function(camera) {",
+                    "",
+                    "        callback(camera);",
+                    "",
+                    "    }).catch(function(error) {",
+                    "",
+                    "        alert('Unable to capture your camera. Please check console logs.');",
+                    "        console.error(error);",
+                    "",
+                    "    });",
+                    "",
+                    "};",
+                    "",
+                    "this.stopRecordingCallback = function stopRecordingCallback() {",
+                    "",
+                    "    that.video.src = that.video.srcObject = null;",
+                    "    that.video.muted = false;",
+                    "    that.video.volume = 1;",
+                    "    that.video.src = URL.createObjectURL(that.recorder.getBlob());",
+                    "",
+                    "",
+                    "    that.recorder.camera.stop();",
+                    "    that.recorder.destroy();",
+                    "    that.recorder = null;",
+                    "",
+                    "};",
+                    "",
+                    "this.recorder = null; // globally accessible"
+                ],
+                "name": "render",
+                "scope": "me"
+            },
+            "configAlternates": {
+                "fn": "string",
+                "implHandler": "code",
+                "name": "string",
+                "scope": "string"
+            },
+            "name": "onViewportRender",
+            "designerId": "d5a61757-9c4f-4023-97ff-e64d35e55ef9"
+        }
+    ]
+}

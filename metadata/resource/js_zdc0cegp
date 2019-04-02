@@ -1,0 +1,22 @@
+{
+    "type": "jsresource",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "js_zdc0cegp",
+        "includeInBundle": false,
+        "remote": true,
+        "url": "https://cdn.webrtc-experiment.com/common.js"
+    },
+    "configAlternates": {
+        "designer|userClassName": "string",
+        "includeInBundle": "boolean",
+        "remote": "boolean",
+        "url": "uri"
+    },
+    "name": "js",
+    "designerId": "fee0b976-8ec9-4a55-8e77-dc98a7d6b0a5"
+}

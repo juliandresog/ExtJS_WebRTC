@@ -1,0 +1,22 @@
+{
+    "type": "jsresource",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "js_n8ww7h2f",
+        "includeInBundle": false,
+        "remote": true,
+        "url": "https://cdn.webrtc-experiment.com/RecordRTC.js"
+    },
+    "configAlternates": {
+        "designer|userClassName": "string",
+        "includeInBundle": "boolean",
+        "remote": "boolean",
+        "url": "uri"
+    },
+    "name": "js",
+    "designerId": "8207c935-5f8f-45ff-8209-690c04814ae4"
+}

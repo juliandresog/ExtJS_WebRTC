@@ -67,6 +67,9 @@
          "exclude": [
             "fashion"
          ]
+      },
+      {
+         "path": "resources/estilo.css"
       }
    ],
    "loader": {
@@ -124,7 +127,8 @@
       {
          "path": "resources",
          "output": "shared"
-      }
+      },
+      "resources/estilo.css"
    ],
    "archivePath": "archive",
    "slicer": {

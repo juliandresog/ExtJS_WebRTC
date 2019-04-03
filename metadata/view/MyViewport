@@ -36,7 +36,7 @@
             "userConfig": {
                 "container|align": "stretch",
                 "layout": "vbox",
-                "title": "RecordTRC"
+                "title": "RecordRTC"
             },
             "configAlternates": {
                 "container|align": "string",
@@ -61,6 +61,25 @@
                     },
                     "name": "MyLabel",
                     "designerId": "bcc21c9a-64e3-4af5-83e3-d344ce82e917"
+                },
+                {
+                    "type": "Ext.form.Label",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "html": "<b>Estado...</b>",
+                        "itemId": "labelEstado"
+                    },
+                    "configAlternates": {
+                        "text": "string",
+                        "html": "string",
+                        "itemId": "string"
+                    },
+                    "name": "MyLabel2",
+                    "designerId": "84d889bd-8d22-49fa-817b-5638a8d48285"
                 },
                 {
                     "type": "Ext.container.Container",
@@ -92,7 +111,7 @@
                             "userConfig": {
                                 "flex": 1,
                                 "height": 510,
-                                "html": "<hr>  <video controls autoplay playsinline></video> <hr><footer style=\"margin-top: 20px;\"><small id=\"send-message\"></small></footer>",
+                                "html": "<hr><div class=\"fondonegro\">  <video id=\"video-boos\" controls autoplay playsinline></video> </div><hr><footer style=\"margin-top: 20px;\"><small id=\"send-message\"></small></footer>",
                                 "itemId": "labelVideo"
                             },
                             "configAlternates": {
@@ -175,6 +194,7 @@
                                                     "",
                                                     "    //document.getElementById('btn-stop-recording').disabled = false;",
                                                     "    that.getView().down('#btnStop').setDisabled(false);",
+                                                    "    //that.getView().down('#btnCargar').setDisabled(false);",
                                                     "",
                                                     "});"
                                                 ],
@@ -223,7 +243,8 @@
                                                 "fn": "onBtnStopClick",
                                                 "implHandler": [
                                                     "button.setDisabled(true);",
-                                                    "this.recorder.stopRecording(this.stopRecordingCallback);"
+                                                    "this.recorder.stopRecording(this.stopRecordingCallback);",
+                                                    "this.getView().down('#btnCargar').setDisabled(false);"
                                                 ],
                                                 "name": "click",
                                                 "scope": "me"
@@ -236,6 +257,89 @@
                                             },
                                             "name": "onBtnStopClick",
                                             "designerId": "1491481c-ef03-40f9-95e5-3487473cfd0f"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "disabled": true,
+                                        "itemId": "btnCargar",
+                                        "text": "Upload file"
+                                    },
+                                    "configAlternates": {
+                                        "disabled": "boolean",
+                                        "itemId": "string",
+                                        "text": "string"
+                                    },
+                                    "name": "MyButton2",
+                                    "designerId": "fbe0e985-b21c-4504-b86e-7886382d105b",
+                                    "cn": [
+                                        {
+                                            "type": "viewcontrollereventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onBtnUploadClick",
+                                                "implHandler": [
+                                                    "var that = this;",
+                                                    "button.setDisabled(true);",
+                                                    "",
+                                                    "// get recorded blob",
+                                                    "var blob = this.VIDEO_BLOB;",
+                                                    "//console.warn('Blob a enviar', blob);",
+                                                    "// generating a random file name",
+                                                    "var fileName = this.getFileName('webm');",
+                                                    "// we need to upload \"File\" --- not \"Blob\"",
+                                                    "var fileObject = new File([blob], fileName, {",
+                                                    "    type: 'video/webm'",
+                                                    "});",
+                                                    "",
+                                                    "//console.warn('Se envia el archivo', fileObject);",
+                                                    "",
+                                                    "this.uploadToWebServer(fileObject, function(response, fileDownloadURL) {",
+                                                    "    //console.warn('Respuesta callback:',response);",
+                                                    "    //console.warn('fileDownloadURL callback:',fileDownloadURL);",
+                                                    "",
+                                                    "    if(response !== 'ended') {",
+                                                    "        that.getView().down('#labelEstado').setHtml(response); // upload progress",
+                                                    "        return;",
+                                                    "    }",
+                                                    "    that.getView().down('#labelEstado').setHtml('<a href=\"' + fileDownloadURL + '\" target=\"_blank\">' + fileDownloadURL + '</a>');",
+                                                    "    //alert('Successfully uploaded recorded blob.');",
+                                                    "    if(fileDownloadURL){",
+                                                    "        // preview uploaded file",
+                                                    "        document.getElementById('video-boos').srcObject = null;",
+                                                    "        document.getElementById('video-boos').src = fileDownloadURL;",
+                                                    "        // open uploaded file in a new tab",
+                                                    "        window.open(fileDownloadURL);",
+                                                    "    }",
+                                                    "});",
+                                                    "// release camera",
+                                                    "//this.video.srcObject = this.video.src = null;",
+                                                    "/*this.recorder.camera.getTracks().forEach(function(track) {",
+                                                    "    track.stop();",
+                                                    "});*/"
+                                                ],
+                                                "name": "click",
+                                                "scope": "me"
+                                            },
+                                            "configAlternates": {
+                                                "fn": "string",
+                                                "implHandler": "code",
+                                                "name": "string",
+                                                "scope": "string"
+                                            },
+                                            "name": "onBtnUploadClick",
+                                            "designerId": "b02a4c95-8251-4ba2-a5f6-0d158bb3ec16"
                                         }
                                     ]
                                 }
@@ -256,7 +360,8 @@
                 "fn": "onViewportRender",
                 "implHandler": [
                     "var that = this;",
-                    "this.video = document.querySelector('video');",
+                    "//this.video = document.querySelector('video');",
+                    "this.video = document.getElementById('video-boos');",
                     "",
                     "this.captureCamera = function captureCamera(callback) {",
                     "",
@@ -280,6 +385,8 @@
                     "    that.video.volume = 1;",
                     "    that.video.src = URL.createObjectURL(that.recorder.getBlob());",
                     "",
+                    "    that.VIDEO_BLOB = that.recorder.getBlob();",
+                    "    //console.warn('Blob a recibido', that.VIDEO_BLOB);",
                     "",
                     "    that.recorder.camera.stop();",
                     "    that.recorder.destroy();",

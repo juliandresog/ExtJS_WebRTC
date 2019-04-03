@@ -1,0 +1,264 @@
+.sinOpacidad{
+    opacity: 0;
+    border: none !important;
+    border-width: 0 !important;
+    background-image: none !important;
+    background-color: transparent !important;
+}
+
+video {
+    max-width: 100%;
+    border: 5px solid yellow;
+    border-radius: 9px;
+}
+
+.fondonegro {
+    background: black;
+}
+
+.btn-transparente{
+    cursor: pointer;
+    background: none repeat scroll 0% 0% rgba(224, 216, 216, 0.0);
+}
+
+.btn-transparente:hover{
+    cursor: pointer;
+    background: none repeat scroll 0% 0% rgba(224, 216, 216, 0.6);
+}
+
+.transparente{
+    background: transparent ! important;
+}
+
+.transparente .x-panel-body {
+    background: transparent ! important;
+}
+
+.contenedor-transparente{
+    background: none repeat scroll 0% 0% rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+}
+
+.contenedor-transparente .x-tab-hide > .x-tab-panel-header > .x-tab-strip-wrap {
+    display: none;
+}
+
+.contenedor-transparente .x-tab-panel-header{
+    border-color: rgb(208, 208, 208);
+    background: none repeat scroll 0% 0% rgba(255, 255, 255, 0.1);
+}
+
+.contenedor-transparente ul.x-tab-strip-top{
+    background: none repeat scroll 0% 0% rgba(255, 255, 255, 0.4);
+    border-bottom: 1px solid rgba(208, 208, 208, 0.5);
+}
+
+.contenedor-transparente x-tab-strip x-tab-strip-top{
+    background: none repeat scroll 0% 0% rgba(255, 255, 255, 0.1);
+}
+
+.contenedor-transparente .x-tab-panel-body {
+    border-color: rgb(208, 208, 208);
+    background: none repeat scroll 0% 0% rgba(255, 255, 255, 0.1);
+}
+
+.contenedor-transparente .login-container .x-tab-panel-header-plain .x-tab-strip-spacer {
+    border: 0px solid;
+    height: 2px;
+    font-size: 1px;
+    line-height: 1px;
+    background: none repeat scroll 0% 0% rgba(255, 255, 255, 0.1);
+}
+
+.contenedor-transparente .panelInformativo {
+    /*font-family: 'Roboto Condensed', sans-serif;*/
+    font-weight: 300;
+    font-size: 8pt;
+    font-weight: 200;
+    color: #666666;
+    text-align: justify;
+    opacity: 0.95;
+    filter: alpha(opacity=95); /* For IE8 and earlier */
+    padding: 5px;
+    margin: 0px 0px 10px;
+}
+
+.contenedor-transparente .x-panel {
+    border-style: none;
+    border-width: 0;
+    outline: 0 none;
+    background-color: rgba(255, 255, 255, 0.4); /* Color white with alpha 0.9*/   
+    /*Padded for readability, you can write the following at one line:*/
+    filter: progid:DXImageTransform.Microsoft.Gradient(
+        GradientType=1,
+        startColorStr="#E6FFFFFF",
+        endColorStr="#E6FFFFFF");
+}
+
+.contenedor-transparente .x-panel-body {
+    background-color: rgba(255, 255, 255, 0.1); /* Color white with alpha 0.9*/    
+    /*Padded for readability, you can write the following at one line:*/
+    filter: progid:DXImageTransform.Microsoft.Gradient(
+        GradientType=1,
+        startColorStr="#E6FFFFFF",
+        endColorStr="#E6FFFFFF");
+}
+
+.contenedor-transparente .x-panel-bl {
+    background-image: none;
+    background-color: rgba(255, 255, 255, 0.1); /* Color white with alpha 0.9*/    
+    /*Padded for readability, you can write the following at one line:*/
+    filter: progid:DXImageTransform.Microsoft.Gradient(
+        GradientType=1,
+        startColorStr="#E6FFFFFF",
+        endColorStr="#E6FFFFFF");
+}
+
+.contenedor-transparente .x-panel-ml {
+    background-image: none;
+    background-color: rgba(255, 255, 255, 0); /* Color white with alpha 0.9*/    
+    /*Padded for readability, you can write the following at one line:*/
+    filter: progid:DXImageTransform.Microsoft.Gradient(
+        GradientType=1,
+        startColorStr="#E6FFFFFF",
+        endColorStr="#E6FFFFFF");
+}
+
+.contenedor-transparente .x-panel-header {
+    background-image: none;
+    border: 1px solid rgba(208, 208, 208, 0.5);
+    color: gray;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding-right: 5px;
+}
+
+.contenedor-transparente .x-panel-tl {
+    background-image: none;
+    /*border-color: #D0D0D0;*/
+    border-width: 0;
+    background: transparent no-repeat 0 0;
+}
+
+.contenedor-transparente .login-container .x-tab-panel-body {
+    border: 0px solid;
+}
+
+.contenedor-transparente .formRegistro .x-panel-bwrap{
+    border: 1px solid;
+    border-color: #ECECEC;
+    border-top: 0px none;
+}
+
+.contenedor-transparente .formLogin .x-panel-bwrap{
+    border: 1px solid;
+    border-color: #ECECEC;
+    border-top: 0px none;
+}
+
+.contenedor-transparente .x-panel-tr {
+    background-image: none;
+    background: transparent no-repeat 0 0;
+}
+
+
+.contenedor-transparente .x-panel-tc {
+    background-image: none;        
+    background: transparent no-repeat 0 0;
+}
+
+.contenedor-transparente .x-panel-tr, .x-panel-tl, .x-panel-tc {
+    /*font-family: 'Roboto Condensed', sans-serif;*/
+    font-weight: 300;
+    font-size: 12pt;
+    background-color: transparent;
+}
+
+.contenedor-transparente .x-panel-tl .x-panel-header {
+    color: gray;
+    /*font-weight: bold;*/
+    font-size: 11pt;
+    font-weight: normal;
+}
+
+.contenedor-transparente .x-panel-tl .x-panel-header {
+    line-height: 20px;
+}
+
+.contenedor-transparente .x-panel-mc {
+    /*background: none repeat scroll 0 0 #FFFFFF;*/
+    background: none repeat scroll 0% 0% rgba(255, 255, 255, 0);
+}    
+
+.contenedor-transparente .x-panel-bl {
+    background-image: none;      
+    background: transparent no-repeat 0 0;
+}
+
+.contenedor-transparente .x-panel-br {
+    background-image: none;   
+    background: transparent no-repeat 0 0;
+}
+
+.contenedor-transparente .x-panel-mr {
+    background-image: none;  
+    background: transparent no-repeat 0 0;
+}
+
+.contenedor-transparente .x-panel-bc {
+    background-image: none; 
+    background: transparent no-repeat 0 0;
+}
+
+.contenedor-transparente .formLogin .x-panel-tr, .formLogin .x-panel-tc, .formRegistro .x-panel-tr, .formRegistro .x-panel-tc{
+    background: transparent no-repeat 0 0;
+}
+
+.contenedor-transparente .x-tab-strip-top .x-tab-right {
+    background-image: none;     
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.contenedor-transparente .x-tab-strip-top .x-tab-left {
+    background-image: none;   
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.contenedor-transparente .x-tab-strip-top .x-tab-strip-inner {
+    background-image: none;   
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.contenedor-transparente .x-tab-strip-top .x-tab-strip-over .x-tab-right {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.contenedor-transparente  .x-tab-strip-top .x-tab-strip-over .x-tab-left {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.contenedor-transparente .x-tab-strip-top .x-tab-strip-over .x-tab-strip-inner {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.contenedor-transparente .x-tab-strip-top .x-tab-strip-active .x-tab-right {        
+    background-color: rgba(255, 255, 255, 0.9);
+    border-top-style: solid;
+    border-top-color: #D0D0D0;
+    border-top-width: 1px;
+}
+
+.contenedor-transparente .x-tab-strip-top .x-tab-strip-active .x-tab-left {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.contenedor-transparente .x-tab-strip-top .x-tab-strip-active .x-tab-strip-inner {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.contenedor-transparente .x-btn-tl, .x-btn-tr, .x-btn-tc, .x-btn-ml, .x-btn-mr, .x-btn-mc, .x-btn-bl, .x-btn-br, .x-btn-bc {
+    background-image: none;   
+}
+
+.contenedor-transparente{
+    border: 1px solid #d0d0d0 !important;
+}

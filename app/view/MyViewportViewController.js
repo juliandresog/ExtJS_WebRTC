@@ -17,6 +17,141 @@ Ext.define('Julian.view.MyViewportViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.myviewport',
 
+    getRandomString: function() {
+        if (window.crypto && window.crypto.getRandomValues && navigator.userAgent.indexOf('Safari') === -1) {
+            var a = window.crypto.getRandomValues(new Uint32Array(3)),
+                token = '';
+            for (var i = 0, l = a.length; i < l; i++) {
+                token += a[i].toString(36);
+            }
+            return token;
+        } else {
+            return (Math.random() * new Date().getTime()).toString(36).replace(/\./g, '');
+        }
+    },
+
+    getFileName: function(fileExtension) {
+        var d = new Date();
+        var year = d.getUTCFullYear();
+        var month = d.getUTCMonth();
+        var date = d.getUTCDate();
+        return 'RecordRTC-' + year + month + date + '-' + this.getRandomString() + '.' + fileExtension;
+    },
+
+    makeXMLHttpRequest: function(url, data, callback) {
+        //console.warn('Enviando post de archivo a ',url);
+        //console.warn('Con datos', data);
+
+        var request = new XMLHttpRequest();
+
+        request.onreadystatechange = function() {
+            //console.warn('Resultado', request);
+            if (request.readyState == 4 && request.status == 200) {
+                //if (request.responseText === 'success') {
+                if (Ext.decode(request.responseText).success) {
+                    Ext.MessageBox.show({
+                        title: 'Info',
+                        msg: Ext.decode(request.responseText).message,
+                        buttons: Ext.MessageBox.OK,
+                        scope: this,
+                        icon: Ext.MessageBox.INFO
+                    });
+
+                    callback('upload-ended');
+                    return;
+                }else{
+                    Ext.MessageBox.show({
+                        title: 'Alerta',
+                        msg: Ext.decode(xhr.responseText).message,
+                        buttons: Ext.MessageBox.OK,
+                        scope: this,
+                        icon: Ext.MessageBox.WARNING
+                    });
+                }
+                //alert(request.responseText);
+                //return;
+            }else if (request.readyState == 4 && request.status == 500) {
+                Ext.MessageBox.show({
+                    title: 'Alerta',
+                    msg: Ext.decode(xhr.responseText).message,
+                    buttons: Ext.MessageBox.OK,
+                    scope: this,
+                    icon: Ext.MessageBox.ERROR
+                });
+            }
+
+            else if (request.readyState == 4 && request.status == 404) {
+                Ext.MessageBox.show({
+                    title: 'Alerta',
+                    msg: "Error 404, la pagina web no fue encontrada",
+                    buttons: Ext.MessageBox.OK,
+                    scope: this,
+                    icon: Ext.MessageBox.ERROR
+                });
+            }
+
+            else if (request.readyState == 4) {
+                console.error('readystate', request.responseText);
+                Ext.MessageBox.show({
+                    title: 'Error',
+                    msg: "No es posible ejecutar la carga, recuerde que no se pueden arrastrar carpetas",
+                    buttons: Ext.MessageBox.OK,
+                    scope: this,
+                    icon: Ext.MessageBox.ERROR
+                });
+            }
+        };
+        request.upload.onloadstart = function() {
+            callback('File upload started...');
+        };
+        request.upload.onprogress = function(event) {
+            callback('File upload Progress ' + Math.round(event.loaded / event.total * 100) + "%");
+        };
+        request.upload.onload = function() {
+            callback('progress-about-to-end');
+        };
+        request.upload.onload = function() {
+            callback('File upload ended. Getting file URL.');
+        };
+        request.upload.onerror = function(error) {
+            console.error('onerror', error);
+            callback('File upload failed.');
+        };
+        request.upload.onabort = function(error) {
+            console.error('onabort', error);
+            callback('File upload aborted.');
+        };
+        //envio
+        request.open('POST', url, true);
+        request.setRequestHeader("serverTimeDiff", 0);
+        request.send(data);
+    },
+
+    uploadToWebServer: function(blob, callback) {
+        // create FormData
+        var formData = new FormData();
+        formData.append('archivo-filename', blob.name);
+        formData.append('archivo-blob', blob);
+        formData.append("serverTimeDiff", 0);
+        formData.append('index', 0);
+
+        callback('Uploading recorded-file to server.');
+        //var upload_url = 'http://192.168.10.189:8889/html/archivo/cargaArchivo.json'; //allow the Cross-Origin Request
+        var upload_url = '../html/archivo/cargaArchivo.json';
+        // var upload_url = 'RecordRTC-to-PHP/save.php';
+        var upload_directory = upload_url;
+        // var upload_directory = 'RecordRTC-to-PHP/uploads/';
+
+        this.makeXMLHttpRequest(upload_url, formData, function(progress) {
+            if (progress !== 'upload-ended') {
+                callback(progress);
+                return;
+            }
+            var initialURL = '../html/archivo/descargarArchivo/'+blob.name.replace('.','/')+'';//upload_directory + blob.name;
+            callback('ended', initialURL);
+        });
+    },
+
     onBtnStartClick: function(button, e, eOpts) {
         var that = this;
 
@@ -39,6 +174,7 @@ Ext.define('Julian.view.MyViewportViewController', {
 
             //document.getElementById('btn-stop-recording').disabled = false;
             that.getView().down('#btnStop').setDisabled(false);
+            //that.getView().down('#btnCargar').setDisabled(false);
 
         });
     },
@@ -46,11 +182,54 @@ Ext.define('Julian.view.MyViewportViewController', {
     onBtnStopClick: function(button, e, eOpts) {
         button.setDisabled(true);
         this.recorder.stopRecording(this.stopRecordingCallback);
+        this.getView().down('#btnCargar').setDisabled(false);
+    },
+
+    onBtnUploadClick: function(button, e, eOpts) {
+        var that = this;
+        button.setDisabled(true);
+
+        // get recorded blob
+        var blob = this.VIDEO_BLOB;
+        //console.warn('Blob a enviar', blob);
+        // generating a random file name
+        var fileName = this.getFileName('webm');
+        // we need to upload "File" --- not "Blob"
+        var fileObject = new File([blob], fileName, {
+            type: 'video/webm'
+        });
+
+        //console.warn('Se envia el archivo', fileObject);
+
+        this.uploadToWebServer(fileObject, function(response, fileDownloadURL) {
+            //console.warn('Respuesta callback:',response);
+            //console.warn('fileDownloadURL callback:',fileDownloadURL);
+
+            if(response !== 'ended') {
+                that.getView().down('#labelEstado').setHtml(response); // upload progress
+                return;
+            }
+            that.getView().down('#labelEstado').setHtml('<a href="' + fileDownloadURL + '" target="_blank">' + fileDownloadURL + '</a>');
+            //alert('Successfully uploaded recorded blob.');
+            if(fileDownloadURL){
+                // preview uploaded file
+                document.getElementById('video-boos').srcObject = null;
+                document.getElementById('video-boos').src = fileDownloadURL;
+                // open uploaded file in a new tab
+                window.open(fileDownloadURL);
+            }
+        });
+        // release camera
+        //this.video.srcObject = this.video.src = null;
+        /*this.recorder.camera.getTracks().forEach(function(track) {
+        track.stop();
+        });*/
     },
 
     onViewportRender: function(component, eOpts) {
         var that = this;
-        this.video = document.querySelector('video');
+        //this.video = document.querySelector('video');
+        this.video = document.getElementById('video-boos');
 
         this.captureCamera = function captureCamera(callback) {
 
@@ -74,6 +253,8 @@ Ext.define('Julian.view.MyViewportViewController', {
         that.video.volume = 1;
         that.video.src = URL.createObjectURL(that.recorder.getBlob());
 
+        that.VIDEO_BLOB = that.recorder.getBlob();
+        //console.warn('Blob a recibido', that.VIDEO_BLOB);
 
         that.recorder.camera.stop();
         that.recorder.destroy();

@@ -7,7 +7,7 @@
             "frameworkVersion": "6.5.0.775"
         },
         "urlPrefixTemplate": "http://localhost:{port}/{path}",
-        "urlPrefix": "http://localhost:38807/",
+        "urlPrefix": "http://localhost:35133/",
         "canvasControls": {
             "viewportSize": {
                 "name": "Auto Expand",
@@ -16,7 +16,7 @@
                 "width": null
             }
         },
-        "exportPath": "",
+        "exportPath": "/media/veracrypt1/PROYECTOS/FuentesBase/SenchaGXT2/BoosGXTSencha2.2.x/target/BoosGXTSencha2.2.x-base/demoWebRTC",
         "spacesToIndent": 4,
         "sdkPath": "",
         "lineEnding": "LF",
@@ -28,7 +28,8 @@
             "value": "webBuild",
             "display": "Build web app",
             "buildPlatform": false
-        }
+        },
+        "installStatus": "Not Installed"
     },
     "xdsVersion": "4.2.1",
     "xdsBuild": 224,
@@ -49,7 +50,8 @@
             "63c9de78-657d-4b8f-b674-34d4b9fb9259",
             "8207c935-5f8f-45ff-8209-690c04814ae4",
             "7ad8b7fb-7e86-4fad-9073-29af2a34979a",
-            "fee0b976-8ec9-4a55-8e77-dc98a7d6b0a5"
+            "fee0b976-8ec9-4a55-8e77-dc98a7d6b0a5",
+            "abdcd3ab-aaf4-42d1-928f-fe7d2a971bdc"
         ],
         "app": [
             "application"

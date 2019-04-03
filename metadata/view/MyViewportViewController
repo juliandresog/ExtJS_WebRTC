@@ -13,5 +13,221 @@
         "designer|userAlias": "string",
         "designer|userClassName": "string"
     },
-    "designerId": "b359e3ad-a9aa-4c7f-a046-98b5221a00ac"
+    "designerId": "b359e3ad-a9aa-4c7f-a046-98b5221a00ac",
+    "cn": [
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "getRandomString",
+                "implHandler": [
+                    "if (window.crypto && window.crypto.getRandomValues && navigator.userAgent.indexOf('Safari') === -1) {",
+                    "    var a = window.crypto.getRandomValues(new Uint32Array(3)),",
+                    "        token = '';",
+                    "    for (var i = 0, l = a.length; i < l; i++) {",
+                    "        token += a[i].toString(36);",
+                    "    }",
+                    "    return token;",
+                    "} else {",
+                    "    return (Math.random() * new Date().getTime()).toString(36).replace(/\\./g, '');",
+                    "}"
+                ]
+            },
+            "configAlternates": {
+                "fn": "string",
+                "implHandler": "code"
+            },
+            "name": "getRandomString",
+            "designerId": "e13cf43b-b254-4d8d-badb-00a3ea980b7b"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "fileExtension"
+                ],
+                "fn": "getFileName",
+                "implHandler": [
+                    "var d = new Date();",
+                    "var year = d.getUTCFullYear();",
+                    "var month = d.getUTCMonth();",
+                    "var date = d.getUTCDate();",
+                    "return 'RecordRTC-' + year + month + date + '-' + this.getRandomString() + '.' + fileExtension;"
+                ]
+            },
+            "configAlternates": {
+                "designer|params": "typedarray",
+                "fn": "string",
+                "implHandler": "code"
+            },
+            "name": "getFileName",
+            "designerId": "febdcbdb-27f6-4133-ba66-0df76f0058e4"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "url",
+                    "data",
+                    "callback"
+                ],
+                "fn": "makeXMLHttpRequest",
+                "implHandler": [
+                    "//console.warn('Enviando post de archivo a ',url);",
+                    "//console.warn('Con datos', data);",
+                    "",
+                    "var request = new XMLHttpRequest();",
+                    "",
+                    "request.onreadystatechange = function() {",
+                    "    //console.warn('Resultado', request);",
+                    "    if (request.readyState == 4 && request.status == 200) {",
+                    "        //if (request.responseText === 'success') {",
+                    "        if (Ext.decode(request.responseText).success) {",
+                    "            Ext.MessageBox.show({",
+                    "                title: 'Info',",
+                    "                msg: Ext.decode(request.responseText).message,",
+                    "                buttons: Ext.MessageBox.OK,",
+                    "                scope: this,",
+                    "                icon: Ext.MessageBox.INFO",
+                    "            });",
+                    "",
+                    "            callback('upload-ended');",
+                    "            return;",
+                    "        }else{",
+                    "            Ext.MessageBox.show({",
+                    "                title: 'Alerta',",
+                    "                msg: Ext.decode(xhr.responseText).message,",
+                    "                buttons: Ext.MessageBox.OK,",
+                    "                scope: this,",
+                    "                icon: Ext.MessageBox.WARNING",
+                    "            });",
+                    "        }",
+                    "        //alert(request.responseText);",
+                    "        //return;",
+                    "    }else if (request.readyState == 4 && request.status == 500) {",
+                    "        Ext.MessageBox.show({",
+                    "            title: 'Alerta',",
+                    "            msg: Ext.decode(xhr.responseText).message,",
+                    "            buttons: Ext.MessageBox.OK,",
+                    "            scope: this,",
+                    "            icon: Ext.MessageBox.ERROR",
+                    "        });",
+                    "    }",
+                    "",
+                    "    else if (request.readyState == 4 && request.status == 404) {",
+                    "        Ext.MessageBox.show({",
+                    "            title: 'Alerta',",
+                    "            msg: \"Error 404, la pagina web no fue encontrada\",",
+                    "            buttons: Ext.MessageBox.OK,",
+                    "            scope: this,",
+                    "            icon: Ext.MessageBox.ERROR",
+                    "        });",
+                    "    }",
+                    "",
+                    "    else if (request.readyState == 4) {",
+                    "        console.error('readystate', request.responseText);",
+                    "        Ext.MessageBox.show({",
+                    "            title: 'Error',",
+                    "            msg: \"No es posible ejecutar la carga, recuerde que no se pueden arrastrar carpetas\",",
+                    "            buttons: Ext.MessageBox.OK,",
+                    "            scope: this,",
+                    "            icon: Ext.MessageBox.ERROR",
+                    "        });",
+                    "    }",
+                    "};",
+                    "request.upload.onloadstart = function() {",
+                    "    callback('File upload started...');",
+                    "};",
+                    "request.upload.onprogress = function(event) {",
+                    "    callback('File upload Progress ' + Math.round(event.loaded / event.total * 100) + \"%\");",
+                    "};",
+                    "request.upload.onload = function() {",
+                    "    callback('progress-about-to-end');",
+                    "};",
+                    "request.upload.onload = function() {",
+                    "    callback('File upload ended. Getting file URL.');",
+                    "};",
+                    "request.upload.onerror = function(error) {",
+                    "    console.error('onerror', error);",
+                    "    callback('File upload failed.');",
+                    "};",
+                    "request.upload.onabort = function(error) {",
+                    "    console.error('onabort', error);",
+                    "    callback('File upload aborted.');",
+                    "};",
+                    "//envio",
+                    "request.open('POST', url, true);",
+                    "request.setRequestHeader(\"serverTimeDiff\", 0);",
+                    "request.send(data);"
+                ]
+            },
+            "configAlternates": {
+                "designer|params": "typedarray",
+                "fn": "string",
+                "implHandler": "code"
+            },
+            "name": "makeXMLHttpRequest",
+            "designerId": "a632ed46-4daf-4213-abc0-fe366dec840e"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "blob",
+                    "callback"
+                ],
+                "fn": "uploadToWebServer",
+                "implHandler": [
+                    "// create FormData",
+                    "var formData = new FormData();",
+                    "formData.append('archivo-filename', blob.name);",
+                    "formData.append('archivo-blob', blob);",
+                    "formData.append(\"serverTimeDiff\", 0);",
+                    "formData.append('index', 0);",
+                    "",
+                    "callback('Uploading recorded-file to server.');",
+                    "//var upload_url = 'http://192.168.10.189:8889/html/archivo/cargaArchivo.json'; //allow the Cross-Origin Request",
+                    "var upload_url = '../html/archivo/cargaArchivo.json';",
+                    "// var upload_url = 'RecordRTC-to-PHP/save.php';",
+                    "var upload_directory = upload_url;",
+                    "// var upload_directory = 'RecordRTC-to-PHP/uploads/';",
+                    "",
+                    "this.makeXMLHttpRequest(upload_url, formData, function(progress) {",
+                    "    if (progress !== 'upload-ended') {",
+                    "        callback(progress);",
+                    "        return;",
+                    "    }",
+                    "    var initialURL = '../html/archivo/descargarArchivo/'+blob.name.replace('.','/')+'';//upload_directory + blob.name;",
+                    "    callback('ended', initialURL);",
+                    "});"
+                ]
+            },
+            "configAlternates": {
+                "designer|params": "typedarray",
+                "fn": "string",
+                "implHandler": "code"
+            },
+            "name": "uploadToWebServer",
+            "designerId": "b0246274-1268-44a8-916e-d1eeec55be23"
+        }
+    ]
 }

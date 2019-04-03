@@ -36,7 +36,7 @@ Ext.define('Julian.view.MyViewport', {
     items: [
         {
             xtype: 'panel',
-            title: 'RecordTRC',
+            title: 'RecordRTC',
             layout: {
                 type: 'vbox',
                 align: 'stretch'
@@ -45,6 +45,11 @@ Ext.define('Julian.view.MyViewport', {
                 {
                     xtype: 'label',
                     text: 'URL Ejemplos: https://www.webrtc-experiment.com/RecordRTC/'
+                },
+                {
+                    xtype: 'label',
+                    html: '<b>Estado...</b>',
+                    itemId: 'labelEstado'
                 },
                 {
                     xtype: 'container',
@@ -58,7 +63,7 @@ Ext.define('Julian.view.MyViewport', {
                             xtype: 'label',
                             flex: 1,
                             height: 510,
-                            html: '<hr>  <video controls autoplay playsinline></video> <hr><footer style="margin-top: 20px;"><small id="send-message"></small></footer>',
+                            html: '<hr><div class="fondonegro">  <video id="video-boos" controls autoplay playsinline></video> </div><hr><footer style="margin-top: 20px;"><small id="send-message"></small></footer>',
                             itemId: 'labelVideo'
                         },
                         {
@@ -85,6 +90,15 @@ Ext.define('Julian.view.MyViewport', {
                                     text: 'Stop Recording',
                                     listeners: {
                                         click: 'onBtnStopClick'
+                                    }
+                                },
+                                {
+                                    xtype: 'button',
+                                    disabled: true,
+                                    itemId: 'btnCargar',
+                                    text: 'Upload file',
+                                    listeners: {
+                                        click: 'onBtnUploadClick'
                                     }
                                 }
                             ]

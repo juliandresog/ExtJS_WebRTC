@@ -6,7 +6,7 @@
             "cmdVersion": "6.5.0.180",
             "frameworkVersion": "6.5.0.775"
         },
-        "urlPrefixTemplate": "http://localhost:{port}/{path}",
+        "urlPrefixTemplate": "http://localhost:35133/{path}",
         "urlPrefix": "http://localhost:35133/",
         "canvasControls": {
             "viewportSize": {

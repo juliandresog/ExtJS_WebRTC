@@ -73,7 +73,7 @@ Ext.define('Julian.view.MyViewportViewController', {
             }else if (request.readyState == 4 && request.status == 500) {
                 Ext.MessageBox.show({
                     title: 'Alerta',
-                    msg: Ext.decode(xhr.responseText).message,
+                    msg: Ext.decode(request.responseText).message,
                     buttons: Ext.MessageBox.OK,
                     scope: this,
                     icon: Ext.MessageBox.ERROR
@@ -136,7 +136,7 @@ Ext.define('Julian.view.MyViewportViewController', {
         formData.append('index', 0);
 
         callback('Uploading recorded-file to server.');
-        //var upload_url = 'http://192.168.10.189:8889/html/archivo/cargaArchivo.json'; //allow the Cross-Origin Request
+        //var upload_url = 'http://192.168.10.7:8082/boos.test/html/archivo/cargaArchivo.json'; //allow the Cross-Origin Request
         var upload_url = '../html/archivo/cargaArchivo.json';
         // var upload_url = 'RecordRTC-to-PHP/save.php';
         var upload_directory = upload_url;
@@ -148,6 +148,7 @@ Ext.define('Julian.view.MyViewportViewController', {
                 return;
             }
             var initialURL = '../html/archivo/descargarArchivo/'+blob.name.replace('.','/')+'';//upload_directory + blob.name;
+            //var initialURL = 'http://192.168.10.7:8082/boos.test/html/archivo/descargarArchivo/'+blob.name.replace('.','/')+'';//upload_directory + blob.name;
             callback('ended', initialURL);
         });
     },
